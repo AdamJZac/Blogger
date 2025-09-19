@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+@import 'tailwindcss/preflight';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  div,
+  section,
+  main {
+    @apply box-border h-full w-full;
+  }
+
+  button {
+    @apply min-w-fit rounded-md p-1 drop-shadow hover:underline;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
