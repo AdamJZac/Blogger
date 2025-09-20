@@ -1,8 +1,12 @@
+import { Route, Routes } from 'react-router-dom';
+import './index.css';
+import { HomePage } from './pages/HomePage/Homepage';
+
 function App() {
   return (
-    <>
-      <h1 className="text-center">Temp</h1>
-    </>
+    <Routes>
+      <Route path="*" element={<HomePage />} />
+    </Routes>
   );
 }
 
