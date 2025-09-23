@@ -1,11 +1,13 @@
+import { AsideButton, type AsideButtonProps } from './AsideButton';
 import { Logo } from './Logo';
 import { Nav } from './Nav';
 
-export function Header() {
+export function Header({ toggleAside }: AsideButtonProps) {
   return (
-    <header className="flex min-h-fit bg-gray-800 p-2 pe-4 text-white">
-      <Logo></Logo>
-      <Nav></Nav>
-    </header>
+    <>
+      <AsideButton toggleAside={toggleAside} />
+      <Logo />
+      <Nav />
+    </>
   );
 }

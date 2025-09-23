@@ -8,7 +8,7 @@
   }
 
   button {
-    @apply min-w-fit rounded-md p-1 drop-shadow hover:underline;
+    @apply min-w-fit cursor-pointer rounded-md p-1 drop-shadow hover:underline;
   }
 }
 

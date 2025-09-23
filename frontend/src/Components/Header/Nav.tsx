@@ -7,7 +7,7 @@ export function Nav() {
         <ol className="">
           <li className="">
             <Link to="" className="hover:underline">
-              Logout
+              Profile
             </Link>
           </li>
         </ol>
