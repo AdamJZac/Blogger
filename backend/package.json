@@ -2,10 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "format:write": "prettier --write \"src/**/*.{js,ts,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,json,css,md}\"",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
@@ -15,7 +21,9 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
-    "express": "^5.1.0"
+    "drizzle-orm": "^0.44.6",
+    "express": "^5.1.0",
+    "postgres": "^3.4.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
@@ -23,10 +31,13 @@
     "@types/cors": "^2.8.19",
     "@types/eslint-plugin-security": "^3.0.0",
     "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.5.2",
+    "drizzle-kit": "^0.31.5",
     "eslint": "^9.35.0",
     "eslint-plugin-security": "^3.0.1",
     "globals": "^16.4.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",

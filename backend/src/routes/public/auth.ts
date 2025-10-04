@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { Router } from "express";
+import { userLogin } from "../../controllers/auth.controller.js";
 
 export const authRouter = Router();
 
-export const login = (req: Request, res: Response, next: NextFunction) => {
-  res.json({ message: "Login attempt" });
-};
+authRouter.post("/login", userLogin);

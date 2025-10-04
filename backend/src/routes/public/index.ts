@@ -1,8 +1,6 @@
 import { Router } from "express";
-import { login } from "./auth";
-import { health } from "./health";
+import { authRouter } from "./auth.js";
 
-export const publicRoutes = Router();
+export const publicRouter = Router();
 
-publicRoutes.get("/", health);
-publicRoutes.post("/login", login);
+publicRouter.post("/", authRouter);
