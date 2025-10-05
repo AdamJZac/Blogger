@@ -1,8 +1,8 @@
-export interface Repository<T> {
+export interface Repository<T, K> {
   findAll(): Promise<T[] | undefined>;
   findById(id: string): Promise<T | undefined>;
   findAllForUserId(id: string): Promise<T[] | undefined>;
-  create(obj: T): Promise<T | undefined>;
+  create(obj: K): Promise<T | undefined>;
   update(obj: T): Promise<T | undefined>;
   delete(obj: T): Promise<T | undefined>;
   execute(sqlStatement: string): Promise<T | undefined>;

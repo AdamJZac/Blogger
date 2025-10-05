@@ -1,10 +1,10 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../db/schema.js";
-import { User } from "../models/users.model.js";
+import { NewUser, User } from "../models/users.model.js";
 import { Repository } from "../types/index.js";
 
-export class UsersRepository implements Repository<User> {
+export class UsersRepository implements Repository<User, NewUser> {
   async findAll(): Promise<User[] | undefined> {
     const result = await db.select().from(users);
     return result;
@@ -15,12 +15,20 @@ export class UsersRepository implements Repository<User> {
     return result;
   }
 
+  async findByEmail(email: string): Promise<User | undefined> {
+    const [result] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email));
+    return result;
+  }
+
   async findAllForUserId(id: string): Promise<User[] | undefined> {
     const result = await db.select().from(users).where(eq(users.id, id));
     return result;
   }
 
-  async create(user: User): Promise<User | undefined> {
+  async create(user: NewUser): Promise<User | undefined> {
     const [result] = await db
       .insert(users)
       .values(user)
