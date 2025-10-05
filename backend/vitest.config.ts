@@ -6,5 +6,12 @@ export default defineConfig({
     environment: "node",
     globals: true,
     include: ["tests/**/*.test.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      reportsDirectory: "./tests/coverage",
+      all: true,
+      include: ["src/**/users.*.ts"],
+    },
   },
 });
