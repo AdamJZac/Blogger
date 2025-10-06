@@ -1,8 +1,8 @@
-import { User } from "../models/users.model.js";
+import { NewUser, User } from "../models/users.model.js";
 import { UsersRepository } from "../repositories/users.repo.js";
 import { Service } from "../types/index.js";
 
-export class UsersService implements Service<User> {
+export class UsersService implements Service<User, NewUser> {
   readonly #repo: UsersRepository;
 
   constructor(repo?: UsersRepository) {
@@ -33,7 +33,7 @@ export class UsersService implements Service<User> {
     return user;
   }
 
-  async create(user: User): Promise<User> {
+  async create(user: NewUser): Promise<User> {
     const createdUser = await this.#repo.create(user);
     if (!createdUser) {
       throw new Error(`Error creating user`);
