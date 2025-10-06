@@ -6,6 +6,6 @@ app.listen(config.api.port, () => {
 });
 
 process.on("SIGINT", async () => {
-  console.log("Shutting down...");
+  console.log("\nShutting down...");
   process.exit();
 });

@@ -8,7 +8,11 @@ export type User = typeof users.$inferSelect;
 export type SafeUser = Omit<User, "password">;
 
 export function isNewUser(obj: unknown): obj is NewUser {
-  if (typeof obj !== "object" || obj === null) {
+  if (
+    typeof obj !== "object" ||
+    obj === null ||
+    Object.keys(obj).length !== 4
+  ) {
     return false;
   }
   const potentialNewUser = obj as Partial<NewUser>;
@@ -22,7 +26,11 @@ export function isNewUser(obj: unknown): obj is NewUser {
 }
 
 export function isUser(obj: unknown): obj is User {
-  if (typeof obj !== "object" || obj === null) {
+  if (
+    typeof obj !== "object" ||
+    obj === null ||
+    Object.keys(obj).length !== 7
+  ) {
     return false;
   }
   const potentialUser = obj as Partial<User>;
