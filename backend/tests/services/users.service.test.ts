@@ -28,28 +28,85 @@ const newUser4: NewUser = {
   password: "password4",
 };
 
+const fullUser1: User = {
+  email: "ServiceNewUser1@mail.com",
+  firstName: "New",
+  lastName: "User1",
+  password: "password1",
+  id: "u1",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+const fullUser2: User = {
+  email: "ServiceNewUser2@mail.com",
+  firstName: "New",
+  lastName: "User2",
+  password: "password2",
+  id: "u2",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+const fullUser3: User = {
+  email: "ServiceNewUser3@mail.com",
+  firstName: "New",
+  lastName: "User3",
+  password: "password3",
+  id: "u3",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+const fullUser4: User = {
+  email: "ServiceNewUser4@mail.com",
+  firstName: "New",
+  lastName: "User4",
+  password: "password4",
+  id: "u4",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+const mockDB: User[] = [fullUser1, fullUser2, fullUser3, fullUser4];
+
 describe("UsersService CRUD", () => {
   const defaultRepoService = new UsersService();
-  const repo = new UsersRepository();
-  const service = new UsersService(repo);
+  let service: UsersService;
 
   beforeAll(async () => {
+    const mockRepo: Partial<UsersRepository> = {
+      findAll: vi.fn().mockResolvedValue(mockDB),
+      findById: vi.fn((id: string) => {
+        return mockDB.find(
+          (element) => element.id === id
+        ) as unknown as Promise<User | undefined>;
+      }),
+      findByEmail: vi.fn((email: string) => {
+        return mockDB.find(
+          (element) => element.email === email
+        ) as unknown as Promise<User | undefined>;
+      }),
+      findAllForUserId: vi.fn((id: string) => {
+        return [
+          mockDB.find((element) => element.id === id),
+        ] as unknown as Promise<User[] | undefined>;
+      }),
+      create: vi.fn((user: NewUser) => {
+        return mockDB.find(
+          (element) => element.email === user.email
+        ) as unknown as Promise<User | undefined>;
+      }),
+      update: vi.fn((user: User) => {
+        return mockDB.find(
+          (element) => element.email === user.email
+        ) as unknown as Promise<User | undefined>;
+      }),
+      delete: vi.fn((user: User) => {
+        return mockDB.find(
+          (element) => element.email === user.email
+        ) as unknown as Promise<User | undefined>;
+      }),
+    };
+
     try {
-      const createdUser1 = await service.create(newUser1);
-      const createdUser3 = await service.create(newUser3);
-
-      if (!isUser(createdUser1) || !isUser(createdUser3)) {
-        throw new Error("Service created object incorrectly");
-      }
-
-      const createdUser1InDb = await service.findById(createdUser1.id);
-      const createdUser3InDb = await service.findById(createdUser3.id);
-      if (
-        JSON.stringify(createdUser1) !== JSON.stringify(createdUser1InDb) ||
-        JSON.stringify(createdUser3) !== JSON.stringify(createdUser3InDb)
-      ) {
-        throw new Error("Service returned object incorrectly");
-      }
+      service = new UsersService(mockRepo as UsersRepository);
     } catch (err) {
       throw new Error(`Error setting up UsersServiceCRUD test: ${err}`);
     }
@@ -166,16 +223,20 @@ describe("UsersService CRUD", () => {
 });
 
 describe("UsersService errors", () => {
-  const mockRepo: Partial<UsersRepository> = {
-    findAll: vi.fn().mockResolvedValue([]),
-    findById: vi.fn().mockResolvedValue(undefined),
-    findByEmail: vi.fn().mockResolvedValue(undefined),
-    findAllForUserId: vi.fn().mockResolvedValue([]),
-    create: vi.fn().mockResolvedValue(undefined),
-    update: vi.fn().mockResolvedValue(undefined),
-    delete: vi.fn().mockResolvedValue(undefined),
-  };
-  const mockService = new UsersService(mockRepo as UsersRepository);
+  let mockService: UsersService;
+
+  beforeAll(() => {
+    const mockRepo: Partial<UsersRepository> = {
+      findAll: vi.fn().mockResolvedValue([]),
+      findById: vi.fn().mockResolvedValue(undefined),
+      findByEmail: vi.fn().mockResolvedValue(undefined),
+      findAllForUserId: vi.fn().mockResolvedValue([]),
+      create: vi.fn().mockResolvedValue(undefined),
+      update: vi.fn().mockResolvedValue(undefined),
+      delete: vi.fn().mockResolvedValue(undefined),
+    };
+    mockService = new UsersService(mockRepo as UsersRepository);
+  });
 
   it("Should throw an error when no data is returned for findAll()", async () => {
     try {
