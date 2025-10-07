@@ -11,7 +11,7 @@ export class UsersService implements Service<User, NewUser> {
 
   async findAll(): Promise<User[]> {
     const users = await this.#repo.findAll();
-    if (!users) {
+    if (!users || !users?.length) {
       throw new Error("Error fetching users");
     }
     return users;
@@ -25,9 +25,17 @@ export class UsersService implements Service<User, NewUser> {
     return user;
   }
 
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.#repo.findByEmail(email);
+    if (!user) {
+      throw new Error(`Error fetching user for ${email}`);
+    }
+    return user;
+  }
+
   async findAllForUserId(id: string): Promise<User[]> {
     const user = await this.#repo.findAllForUserId(id);
-    if (!user) {
+    if (!user || !user?.length) {
       throw new Error(`Error fetching data for userId ${id}`);
     }
     return user;
