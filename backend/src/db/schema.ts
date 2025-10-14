@@ -12,3 +12,14 @@ export const users = pgTable("users", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const blogs = pgTable("blogs", {
+  id: uuid("blogs").primaryKey().notNull().defaultRandom(),
+  title: text("title").notNull(),
+  ownerId: uuid("owner_id").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+});
